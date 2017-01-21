@@ -25,6 +25,9 @@ module Chatbot
     File.join("**", "*rb")
     config.autoload_paths += Dir[Rails.root.join("app", "bot", "*")]
 
+    config.autoload_paths += %W(#{config.root}/lib)
+    config.autoload_paths += Dir["#{config.root}/lib/**/"]
+
     config.active_record.raise_in_transactional_callbacks = true
   end
 end
