@@ -18,7 +18,32 @@ module Facebook
 			get("/oauth/access_token", options)
 		end
 
+		def set_typing_on(fb_id)
+			body = {
+				recipient: { id: fb_id},
+				sender_action: "typing_on"
+			}
+			post("me/messages?access_token=#{ENV['FB_ACCESS_TOKEN']}", body)
+		end
+
+		def set_typing_off(fb_id)
+			body = {
+				recipient: { id: fb_id},
+				sender_action: "typing_off"
+			}
+			post("me/messages?access_token=#{ENV['FB_ACCESS_TOKEN']}", body)
+		end
+
 		private
+
+		def post(path, body)
+			conn = Faraday.new(@base_url)
+			conn.post do |req|
+				req.url path
+				req.headers["Content-Type"] = "application/json"
+				req.body = "#{body}"
+			end
+		end
 
 		def get(path, options = {})
 			conn = Faraday.new(@base_url)

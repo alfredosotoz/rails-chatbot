@@ -5,17 +5,19 @@ include Facebook::Messenger
 Facebook::Messenger::Subscriptions.subscribe
 
 Bot.on :message do |message|
-	
-	client = Facebook::Client.new
+	brain = Brain.new
+	brain.set_message(message)
+	brain.start_typing
+	brain.create_log
+	brain.process_message
+	brain.stop_typing
+end
 
-	user_data = client.get_user(message.sender["id"])
-
-	user_name = user_data["first_name"]
-
-	Bot.deliver(
-		recipient: message.sender,
-		message: {
-			text: "Hi #{user_name}"
-		}
-	)
+Bot.on :postback do |postback|
+	brain = Brain.new
+	brain.set_postback(message)
+	brain.start_typing
+	brain.create_log
+	brain.process_postback
+	brain.stop_typing
 end
