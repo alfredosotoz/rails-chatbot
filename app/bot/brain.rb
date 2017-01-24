@@ -13,7 +13,7 @@ class Brain
     @attachments = message.attachments
   end
 
-	def set_postback
+	def set_postback(postback)
 		@postback = postback
 		@sender = postback.sender
 	end
@@ -35,6 +35,16 @@ class Brain
 	end
 
 	def process_postback
+		resp = Postback.new(postback.payload, user.id).process
+
+		resp.each do |r|
+			case r[:type]
+			when "text"
+				send_text(r[:text])
+			else
+				fail "invalid type"
+			end
+		end
 	end
 
 	def create_log
