@@ -41,6 +41,8 @@ class Brain
 			case r[:type]
 			when "text"
 				send_text(r[:text])
+			when "generic"
+				send_generic_template(r[:elements])
 			else
 				fail "invalid type"
 			end
@@ -71,6 +73,21 @@ class Brain
 			recipient: sender,
 			message: {
 				text: text
+			}
+		)
+	end
+
+	def send_generic_template(elements)
+		Bot.deliver(
+			recipient: sender,
+			message: {
+				attachment: {
+					type: "template",
+					payload: {
+						template_type: "generic", 
+						elements: elements
+					}
+				}
 			}
 		)
 	end
