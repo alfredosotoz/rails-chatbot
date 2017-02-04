@@ -2,7 +2,7 @@ module NewsApi
 	class Client
 		attr_reader :source, :base_url
 		
-		def initialize
+		def initialize(source)
 			@source = source
 			@base_url = "https://newsapi.org/v1"
 
@@ -17,7 +17,7 @@ module NewsApi
 			}
 
 			data = JSON.load(get("articles", options))
-			data = ['"articles']
+			data["articles"]
 		end
 
 		private 
