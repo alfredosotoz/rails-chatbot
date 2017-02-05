@@ -45,7 +45,7 @@ module Elements
 					{
 						type: "postback",
 						title: "Subscribe",
-						payload: "subcribed&source_id=#{source_id}"
+						payload: "start_subscribe&source_id=#{source_id}"
 					}
 				end
 			end

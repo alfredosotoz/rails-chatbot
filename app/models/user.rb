@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
 	validates :fb_id, :full_name, presence: true 
 
 	has_many :source_subscriptions
+	has_many :contexts
 
 	def first_name
 		full_name.split(" ").first
