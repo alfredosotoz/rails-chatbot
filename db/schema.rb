@@ -13,14 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20170205010532) do
 
-  create_table "contexts", force: :cascade do |t|
-    t.integer  "user_id"
-    t.string   "state"
-    t.string   "param"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "logs", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "fb_message_id"
